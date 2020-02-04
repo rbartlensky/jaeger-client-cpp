@@ -482,3 +482,10 @@ install(
   NAMESPACE "${namespace}"
   DESTINATION "${config_install_dir}"
 )
+
+set(DEST_DIR "${CMAKE_INSTALL_PREFIX}")
+foreach(LIB IN ITEMS thrift yaml-cpp opentracing)
+  set(PRIVATE_LIBS "${PRIVATE_LIBS} -l${LIB}")
+endforeach()
+configure_file("jaegertracing.pc.in" "jaegertracing.pc" @ONLY)
+install(FILES "jaegertracing.pc" DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/jaegertracing.pc)
